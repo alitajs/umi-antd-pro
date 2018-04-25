@@ -4,21 +4,13 @@ import Breadcrumbs from './Breadcrumbs';
 // import PageHeaderLayout from './PageHeaderLayout';
 // import UserLayout from './UserLayout';
 import { config } from "utils";
-const { loginPages, openPages } = config;
+const {  openPages } = config;
 export default ({ children ,location}) => {
   let { pathname } = location;
   pathname = pathname.startsWith("/") ? pathname : `/${pathname}`;
   if (openPages && openPages.includes(pathname)) {
     return (
-      <div>
-        没有Layout
-        {children}
-      </div>
-    );
-  }else if (loginPages && loginPages.includes(pathname)) {
-    return (
-      <div>
-        登录页
+      <div style={{height:'100%'}}>
         {children}
       </div>
     );
