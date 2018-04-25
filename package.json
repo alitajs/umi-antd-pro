@@ -1,0 +1,34 @@
+{
+  "name": "umi-antd-pro",
+  "version": "1.0.0",
+  "description": "umi example with ant design pro",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "umi dev",
+    "build": "umi build",
+    "lint": "eslint --ext .js src test",
+    "precommit": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiaohuoni/umi-antd-pro.git"
+  },
+  "keywords": [
+    "umi",
+    "antd",
+    "pro"
+  ],
+  "author": "xiaohuoni",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xiaohuoni/umi-antd-pro/issues"
+  },
+  "homepage": "https://github.com/xiaohuoni/umi-antd-pro#readme",
+  "devDependencies": {
+    "umi-plugin-routes": "^0.1.2"
+  },
+  "dependencies": {
+    "react-router-breadcrumbs-hoc": "^2.1.0",
+    "react-transition-group": "^2.3.1"
+  }
+}
