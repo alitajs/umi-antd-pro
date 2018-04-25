@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/xiaohuoni/umi-antd-pro#readme",
   "devDependencies": {
+    "mockjs": "^1.0.1-beta3",
+    "moment": "^2.22.1",
     "umi-plugin-routes": "^0.1.2"
   },
   "dependencies": {
