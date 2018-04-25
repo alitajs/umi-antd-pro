@@ -5,7 +5,7 @@ import { getFakeChartData } from './mock/chart';
 import { getProfileBasicData } from './mock/profile';
 import { getProfileAdvancedData } from './mock/profile';
 import { getNotices } from './mock/notices';
-import { format, delay } from './utils/roadhog-api-doc-util';
+import { format, delay } from './src/utils/roadhog-api-doc-util';
 
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true';
