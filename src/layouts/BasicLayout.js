@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import { Layout, Icon, message } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
-// import { Route, Redirect, Switch, routerRedux } from 'dva/router';
-import { Switch, routerRedux } from 'dva/router';
+import { routerRedux } from 'dva/router';
 import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
 import { enquireScreen, unenquireScreen } from 'enquire-js';
 import GlobalHeader from 'components/GlobalHeader';
 import GlobalFooter from 'components/GlobalFooter';
 import SiderMenu from 'components/SiderMenu';
-// import NotFound from '../pages/Exception/404';
 import Authorized from 'utils/Authorized';
 import { getMenuData } from 'common/menu';
 import logo from 'assets/logo.svg';
@@ -211,24 +209,7 @@ class BasicLayout extends React.PureComponent {
             />
           </Header>
           <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-            <Switch>
-              {/* {redirectData.map(item => (
-                <Redirect key={item.from} exact from={item.from} to={item.to} />
-              ))} */}
-              {/* {getRoutes(match.path, routerData).map(item => (
-                <AuthorizedRoute
-                  key={item.key}
-                  path={item.path}
-                  component={item.component}
-                  exact={item.exact}
-                  authority={item.authority}
-                  redirectPath="/exception/403"
-                />
-              ))} */}
-              {children}
-              {/* <Redirect exact from="/" to={bashRedirect} />
-              <Route render={NotFound} /> */}
-            </Switch>
+            {children}
           </Content>
           <Footer style={{ padding: 0 }}>
             <GlobalFooter

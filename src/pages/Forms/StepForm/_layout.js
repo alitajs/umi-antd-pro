@@ -1,9 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
-import { Route, Redirect, Switch } from 'dva/router';
 import { Card, Steps } from 'antd';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 import NotFound from '../../Exception/404';
-// import { getRoutes } from '../../../utils/utils';
 import styles from '../style.less';
 
 const { Step } = Steps;
@@ -38,11 +36,7 @@ export default class StepForm extends PureComponent {
               <Step title="确认转账信息" />
               <Step title="完成" />
             </Steps>
-            <Switch>
-              {children}
-              <Redirect exact from="/form/step-form" to="/form/step-form/info" />
-              <Route render={NotFound} />
-            </Switch>
+            {children}
           </Fragment>
         </Card>
       </PageHeaderLayout>

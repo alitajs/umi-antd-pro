@@ -1,4 +1,6 @@
 import { queryNotices } from '../services/api';
+import { getAuthority } from 'utils/authority';
+import { routerRedux } from 'dva/router';
 
 export default {
   namespace: 'global',
@@ -31,6 +33,14 @@ export default {
         payload: count,
       });
     },
+    *init({payload},{put}){
+      const author = getAuthority();
+      if(author === 'guest'||!author){
+        yield put(routerRedux.push('/User/Login'))
+      }else{
+        yield put(routerRedux.push('/Dashboard/Analysis'))
+      }
+    }
   },
 
   reducers: {
@@ -55,12 +65,33 @@ export default {
   },
 
   subscriptions: {
-    setup({ history }) {
+    setup({ history,dispatch }) {
       // Subscribe history(url) change, trigger `load` action if pathname is `/`
       return history.listen(({ pathname, search }) => {
         if (typeof window.ga !== 'undefined') {
           window.ga('send', 'pageview', pathname + search);
         }
+        //手动做了重定向
+        if(pathname==='/'){
+          dispatch({
+            type:"init"
+          })
+        }else if(pathname==='/Dashboard'){
+          dispatch(routerRedux.push('/Dashboard/Analysis'))
+        }else if(pathname==='/Forms'){
+          dispatch(routerRedux.push('/Forms/BasicForm'))
+        }else if(pathname==='/List'){
+          dispatch(routerRedux.push('/List/TableList'))
+        }else if(pathname==='/List/Search'){
+          dispatch(routerRedux.push('/List/Search/Articles'))
+        }else if(pathname==='/Profile'){
+          dispatch(routerRedux.push('/Profile/BasicProfile'))
+        }else if(pathname==='/Result'){
+          dispatch(routerRedux.push('/Result/Success'))
+        }else if(pathname==='/Exception'){
+          dispatch(routerRedux.push('/Exception/403'))
+        }
+        
       });
     },
   },

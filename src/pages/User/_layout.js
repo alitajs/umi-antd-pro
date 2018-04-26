@@ -57,21 +57,7 @@ class UserLayout extends React.PureComponent {
               </div>
               <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
             </div>
-            {/* TODO:这里重定向失败，需要修改*/}
-            {/* <Switch> */}
               {children}
-            {/* {getRoutes(match.path, routerData).map(item =>
-                (
-                  <Route
-                    key={item.key}
-                    path={item.path}
-                    component={item.component}
-                    exact={item.exact}
-                  />
-                )
-              )} */}
-              {/* <Redirect exact from="/user" to="//User/Login" /> */}
-            {/* </Switch> */}
           </div>
           <GlobalFooter links={links} copyright={copyright} />
         </div>

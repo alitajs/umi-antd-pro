@@ -1,3 +1,3 @@
 
-export default () =>
-  <h1>/404</h1>
+import noPages from './Exception/404';
+export default noPages;

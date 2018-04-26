@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { routerRedux,  Switch } from 'dva/router';
+import { routerRedux } from 'dva/router';
 import { connect } from 'dva';
 import { Input } from 'antd';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
 
 @connect()
 export default class SearchList extends Component {
@@ -62,9 +62,7 @@ export default class SearchList extends Component {
         tabActiveKey={location.pathname.replace(`${match.path}/`, '')}
         onTabChange={this.handleTabChange}
       >
-        <Switch>
-          {children}
-        </Switch>
+        {children}
       </PageHeaderLayout>
     );
   }
