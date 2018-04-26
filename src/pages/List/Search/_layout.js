@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
-import { routerRedux, Route, Switch } from 'dva/router';
+import { routerRedux,  Switch } from 'dva/router';
 import { connect } from 'dva';
 import { Input } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import { getRoutes } from '../../utils/utils';
 
 @connect()
 export default class SearchList extends Component {
   handleTabChange = key => {
     const { dispatch, match } = this.props;
+    
     switch (key) {
-      case 'articles':
-        dispatch(routerRedux.push(`${match.url}/articles`));
+      case 'Search/Articles':
+        dispatch(routerRedux.push(`${match.url}/Search/Articles`));
         break;
-      case 'applications':
-        dispatch(routerRedux.push(`${match.url}/applications`));
+      case 'Search/Applications':
+        dispatch(routerRedux.push(`${match.url}/Search/Applications`));
         break;
-      case 'projects':
-        dispatch(routerRedux.push(`${match.url}/projects`));
+      case 'Search/Projects':
+        dispatch(routerRedux.push(`${match.url}/Search/Projects`));
         break;
       default:
         break;
@@ -27,15 +27,15 @@ export default class SearchList extends Component {
   render() {
     const tabList = [
       {
-        key: 'articles',
+        key: 'Search/Articles',
         tab: '文章',
       },
       {
-        key: 'applications',
+        key: 'Search/Applications',
         tab: '应用',
       },
       {
-        key: 'projects',
+        key: 'Search/Projects',
         tab: '项目',
       },
     ];
@@ -52,8 +52,7 @@ export default class SearchList extends Component {
       </div>
     );
 
-    const { match, routerData, location } = this.props;
-    const routes = getRoutes(match.path, routerData);
+    const { match,  location,children } = this.props;
 
     return (
       <PageHeaderLayout
@@ -64,9 +63,7 @@ export default class SearchList extends Component {
         onTabChange={this.handleTabChange}
       >
         <Switch>
-          {routes.map(item => (
-            <Route key={item.key} path={item.path} component={item.component} exact={item.exact} />
-          ))}
+          {children}
         </Switch>
       </PageHeaderLayout>
     );

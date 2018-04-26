@@ -6,13 +6,12 @@ import Login from 'components/Login';
 import styles from './Login.less';
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
-console.log(Login);
 
 @connect(({ login, loading }) => ({
   login,
   submitting: loading.effects['login/login'],
 }))
-class LoginPage extends Component {
+export default class LoginPage extends Component {
   state = {
     type: 'account',
     autoLogin: true,
@@ -94,4 +93,3 @@ class LoginPage extends Component {
     );
   }
 }
-export default LoginPage;

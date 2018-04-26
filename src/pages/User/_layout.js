@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Link, Redirect, Switch } from 'dva/router';
+import { Link } from 'dva/router';
 import DocumentTitle from 'react-document-title';
 import { Icon } from 'antd';
 import GlobalFooter from 'components/GlobalFooter';
@@ -70,7 +70,7 @@ class UserLayout extends React.PureComponent {
                   />
                 )
               )} */}
-              {/* <Redirect exact from="/user" to="/user/login" /> */}
+              {/* <Redirect exact from="/user" to="//User/Login" /> */}
             {/* </Switch> */}
           </div>
           <GlobalFooter links={links} copyright={copyright} />

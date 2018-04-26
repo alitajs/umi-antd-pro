@@ -1,60 +1,5 @@
-import { createElement } from 'react';
-import dynamic from 'dva/dynamic';
 import pathToRegexp from 'path-to-regexp';
 import { getMenuData } from './menu';
-
-let routerDataCache;
-
-const modelNotExisted = (app, model) => (
-  // eslint-disable-next-line
-  !app._models.some(({ namespace }) => {
-    return namespace === model.substring(model.lastIndexOf('/') + 1);
-  })
-);
-
-// wrapper of dynamic
-const dynamicWrapper = (app, models, component) => {
-  return '';
-  // () => require('module')
-  // transformed by babel-plugin-dynamic-console.log-node-sync
-  // if (component.toString().indexOf('.then(') < 0) {
-  //   models.forEach((model) => {
-  //     if (modelNotExisted(app, model)) {
-  //       // eslint-disable-next-line
-  //       app.model(require(`../models/${model}`).default);
-  //     }
-  //   });
-  //   return (props) => {
-  //     if (!routerDataCache) {
-  //       routerDataCache = getRouterData(app);
-  //     }
-  //     return createElement(component().default, {
-  //       ...props,
-  //       routerData: routerDataCache,
-  //     });
-  //   };
-  // }
-  // () => console.log('module')
-//   return dynamic({
-//     app,
-//     models: () => models.filter(
-//       model => modelNotExisted(app, model)).map(m => console.log(`../models/${m}.js`)
-//     ),
-//     // add routerData prop
-//     component: () => {
-//       if (!routerDataCache) {
-//         routerDataCache = getRouterData(app);
-//       }
-//       return component().then((raw) => {
-//         const Component = raw.default || raw;
-//         return props => createElement(Component, {
-//           ...props,
-//           routerData: routerDataCache,
-//         });
-//       });
-//     },
-//   });
-};
 
 function getFlatMenuData(menus) {
   let keys = {};
@@ -72,97 +17,71 @@ function getFlatMenuData(menus) {
 export const getRouterData = (app) => {
   const routerConfig = {
     '/': {
-      component: dynamicWrapper(app, ['user', 'login'], () => console.log('../layouts/BasicLayout')),
+      name:'xiaohuOni'
     },
-    '/dashboard/analysis': {
-      component: dynamicWrapper(app, ['chart'], () => console.log('../page/Dashboard/Analysis')),
+    '/Dashboard/Analysis': {
+      name:'分析页'
     },
-    '/dashboard/monitor': {
-      component: dynamicWrapper(app, ['monitor'], () => console.log('../routes/Dashboard/Monitor')),
+    '/Dashboard/Monitor': {
     },
-    '/dashboard/workplace': {
-      component: dynamicWrapper(app, ['project', 'activities', 'chart'], () => console.log('../routes/Dashboard/Workplace')),
+    '/Dashboard/Workplace': {
+      // component: dynamicWrapper(app, ['project', 'activities', 'chart'], () => import('../routes/Dashboard/Workplace')),
       // hideInBreadcrumb: true,
       // name: '工作台',
       // authority: 'admin',
     },
-    '/form/basic-form': {
-      component: dynamicWrapper(app, ['form'], () => console.log('../routes/Forms/BasicForm')),
+    '/Forms/BasicForm': {
     },
-    '/form/step-form': {
-      component: dynamicWrapper(app, ['form'], () => console.log('../routes/Forms/StepForm')),
+    '/Forms/StepForm': {
     },
-    '/form/step-form/info': {
+    '/Forms/StepForm/Step1': {
       name: '分步表单（填写转账信息）',
-      component: dynamicWrapper(app, ['form'], () => console.log('../routes/Forms/StepForm/Step1')),
     },
-    '/form/step-form/confirm': {
+    '/Forms/StepForm/Step2': {
       name: '分步表单（确认转账信息）',
-      component: dynamicWrapper(app, ['form'], () => console.log('../routes/Forms/StepForm/Step2')),
     },
-    '/form/step-form/result': {
+    '/Forms/StepForm/Step3': {
       name: '分步表单（完成）',
-      component: dynamicWrapper(app, ['form'], () => console.log('../routes/Forms/StepForm/Step3')),
     },
-    '/form/advanced-form': {
-      component: dynamicWrapper(app, ['form'], () => console.log('../routes/Forms/AdvancedForm')),
+    '/Forms/AdvancedForm': {
     },
-    '/list/table-list': {
-      component: dynamicWrapper(app, ['rule'], () => console.log('../routes/List/TableList')),
+    '/List/TableList': {
     },
-    '/list/basic-list': {
-      component: dynamicWrapper(app, ['list'], () => console.log('../routes/List/BasicList')),
+    '/List/BasicList': {
     },
-    '/list/card-list': {
-      component: dynamicWrapper(app, ['list'], () => console.log('../routes/List/CardList')),
+    '/List/CardList': {
     },
-    '/list/search': {
-      component: dynamicWrapper(app, ['list'], () => console.log('../routes/List/List')),
+    '/List': {
     },
-    '/list/search/projects': {
-      component: dynamicWrapper(app, ['list'], () => console.log('../routes/List/Projects')),
+    '/List/Search/Projects': {
     },
-    '/list/search/applications': {
-      component: dynamicWrapper(app, ['list'], () => console.log('../routes/List/Applications')),
+    '/List/Search/Applications': {
     },
-    '/list/search/articles': {
-      component: dynamicWrapper(app, ['list'], () => console.log('../routes/List/Articles')),
+    '/List/Search/Articles': {
     },
-    '/profile/basic': {
-      component: dynamicWrapper(app, ['profile'], () => console.log('../routes/Profile/BasicProfile')),
+    '/Profile/BasicProfile': {
     },
-    '/profile/advanced': {
-      component: dynamicWrapper(app, ['profile'], () => console.log('../routes/Profile/AdvancedProfile')),
+    '/Profile/AdvancedProfile': {
     },
-    '/result/success': {
-      component: dynamicWrapper(app, [], () => console.log('../routes/Result/Success')),
+    '/Result/success': {
     },
-    '/result/fail': {
-      component: dynamicWrapper(app, [], () => console.log('../routes/Result/Error')),
+    '/Result/Error': {
     },
-    '/exception/403': {
-      component: dynamicWrapper(app, [], () => console.log('../routes/Exception/403')),
+    '/Exception/403': {
     },
-    '/exception/404': {
-      component: dynamicWrapper(app, [], () => console.log('../routes/Exception/404')),
+    '/Exception/404': {
     },
-    '/exception/500': {
-      component: dynamicWrapper(app, [], () => console.log('../routes/Exception/500')),
+    '/Exception/500': {
     },
-    '/exception/trigger': {
-      component: dynamicWrapper(app, ['error'], () => console.log('../routes/Exception/triggerException')),
+    '/Exception/triggerException': {
     },
-    '/user': {
-      component: dynamicWrapper(app, [], () => console.log('../layouts/UserLayout')),
+    '/User': {
     },
-    '/user/login': {
-      component: dynamicWrapper(app, ['login'], () => console.log('../routes/User/Login')),
+    '/User/Login': {
     },
-    '/user/register': {
-      component: dynamicWrapper(app, ['register'], () => console.log('../routes/User/Register')),
+    '/User/Register': {
     },
-    '/user/register-result': {
-      component: dynamicWrapper(app, [], () => console.log('../routes/User/RegisterResult')),
+    '/User/RegisterResult': {
     },
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => console.log('../routes/User/SomeComponent')),

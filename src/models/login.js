@@ -20,6 +20,8 @@ export default {
       // Login successfully
       if (response.status === 'ok') {
         reloadAuthorized();
+        console.log(reloadAuthorized());
+        
         yield put(routerRedux.push('/'));
       }
     },
@@ -40,7 +42,7 @@ export default {
           },
         });
         reloadAuthorized();
-        yield put(routerRedux.push('/user/login'));
+        yield put(routerRedux.push('/User/Login'));
       }
     },
   },

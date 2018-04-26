@@ -1,17 +1,27 @@
 import React, { PureComponent } from 'react';
-import moment from 'moment';
+import numeral from 'numeral';
 import { connect } from 'dva';
-import { Row, Col, Form, Card, Select, List } from 'antd';
+import { Row, Col, Form, Card, Select, Icon, Avatar, List, Tooltip, Dropdown, Menu } from 'antd';
 
 import TagSelect from 'components/TagSelect';
-import AvatarList from 'components/AvatarList';
-import Ellipsis from 'components/Ellipsis';
 import StandardFormRow from 'components/StandardFormRow';
 
-import styles from './Projects.less';
+import styles from './Applications.less';
 
 const { Option } = Select;
 const FormItem = Form.Item;
+
+const formatWan = (val) => {
+  const v = val * 1;
+  if (!v || isNaN(v)) return '';
+
+  let result = val;
+  if (val > 10000) {
+    result = Math.floor(val / 10000);
+    result = <span>{result}<em className={styles.wan}>万</em></span>;
+  }
+  return result;
+};
 
 /* eslint react/no-array-index-key: 0 */
 @Form.create()
@@ -19,7 +29,7 @@ const FormItem = Form.Item;
   list,
   loading: loading.models.list,
 }))
-export default class CoverCardList extends PureComponent {
+export default class FilterCardList extends PureComponent {
   componentDidMount() {
     this.props.dispatch({
       type: 'list/fetch',
@@ -33,7 +43,7 @@ export default class CoverCardList extends PureComponent {
     const { form, dispatch } = this.props;
     // setTimeout 用于保证获取表单值是在所有表单字段更新完毕的时候
     setTimeout(() => {
-      form.validateFields(err => {
+      form.validateFields((err) => {
         if (!err) {
           // eslint-disable-next-line
           dispatch({
@@ -45,48 +55,24 @@ export default class CoverCardList extends PureComponent {
         }
       });
     }, 0);
-  };
+  }
 
   render() {
-    const { list: { list = [] }, loading, form } = this.props;
+    const { list: { list }, loading, form } = this.props;
     const { getFieldDecorator } = form;
 
-    const cardList = list ? (
-      <List
-        rowKey="id"
-        loading={loading}
-        grid={{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }}
-        dataSource={list}
-        renderItem={item => (
-          <List.Item>
-            <Card
-              className={styles.card}
-              hoverable
-              cover={<img alt={item.title} src={item.cover} height={154} />}
-            >
-              <Card.Meta
-                title={<a href="#">{item.title}</a>}
-                description={<Ellipsis lines={2}>{item.subDescription}</Ellipsis>}
-              />
-              <div className={styles.cardItemContent}>
-                <span>{moment(item.updatedAt).fromNow()}</span>
-                <div className={styles.avatarList}>
-                  <AvatarList size="mini">
-                    {item.members.map((member, i) => (
-                      <AvatarList.Item
-                        key={`${item.id}-avatar-${i}`}
-                        src={member.avatar}
-                        tips={member.name}
-                      />
-                    ))}
-                  </AvatarList>
-                </div>
-              </div>
-            </Card>
-          </List.Item>
-        )}
-      />
-    ) : null;
+    const CardInfo = ({ activeUser, newUser }) => (
+      <div className={styles.cardInfo}>
+        <div>
+          <p>活跃用户</p>
+          <p>{activeUser}</p>
+        </div>
+        <div>
+          <p>新增用户</p>
+          <p>{newUser}</p>
+        </div>
+      </div>
+    );
 
     const formItemLayout = {
       wrapperCol: {
@@ -95,8 +81,22 @@ export default class CoverCardList extends PureComponent {
       },
     };
 
+    const itemMenu = (
+      <Menu>
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
+        </Menu.Item>
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
+        </Menu.Item>
+        <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">3d menu item</a>
+        </Menu.Item>
+      </Menu>
+    );
+
     return (
-      <div className={styles.coverCardList}>
+      <div className={styles.filterCardList}>
         <Card bordered={false}>
           <Form layout="inline">
             <StandardFormRow title="所属类目" block style={{ paddingBottom: 11 }}>
@@ -119,10 +119,17 @@ export default class CoverCardList extends PureComponent {
                 )}
               </FormItem>
             </StandardFormRow>
-            <StandardFormRow title="其它选项" grid last>
+            <StandardFormRow
+              title="其它选项"
+              grid
+              last
+            >
               <Row gutter={16}>
                 <Col lg={8} md={10} sm={10} xs={24}>
-                  <FormItem {...formItemLayout} label="作者">
+                  <FormItem
+                    {...formItemLayout}
+                    label="作者"
+                  >
                     {getFieldDecorator('author', {})(
                       <Select
                         onChange={this.handleFormSubmit}
@@ -135,7 +142,10 @@ export default class CoverCardList extends PureComponent {
                   </FormItem>
                 </Col>
                 <Col lg={8} md={10} sm={10} xs={24}>
-                  <FormItem {...formItemLayout} label="好评度">
+                  <FormItem
+                    {...formItemLayout}
+                    label="好评度"
+                  >
                     {getFieldDecorator('rate', {})(
                       <Select
                         onChange={this.handleFormSubmit}
@@ -152,7 +162,38 @@ export default class CoverCardList extends PureComponent {
             </StandardFormRow>
           </Form>
         </Card>
-        <div className={styles.cardList}>{cardList}</div>
+        <List
+          rowKey="id"
+          style={{ marginTop: 24 }}
+          grid={{ gutter: 24, xl: 4, lg: 3, md: 3, sm: 2, xs: 1 }}
+          loading={loading}
+          dataSource={list}
+          renderItem={item => (
+            <List.Item key={item.id}>
+              <Card
+                hoverable
+                bodyStyle={{ paddingBottom: 20 }}
+                actions={[
+                  <Tooltip title="下载"><Icon type="download" /></Tooltip>,
+                  <Tooltip title="编辑"><Icon type="edit" /></Tooltip>,
+                  <Tooltip title="分享"><Icon type="share-alt" /></Tooltip>,
+                  <Dropdown overlay={itemMenu}><Icon type="ellipsis" /></Dropdown>,
+                ]}
+              >
+                <Card.Meta
+                  avatar={<Avatar size="small" src={item.avatar} />}
+                  title={item.title}
+                />
+                <div className={styles.cardItemContent}>
+                  <CardInfo
+                    activeUser={formatWan(item.activeUser)}
+                    newUser={numeral(item.newUser).format('0,0')}
+                  />
+                </div>
+              </Card>
+            </List.Item>
+          )}
+        />
       </div>
     );
   }

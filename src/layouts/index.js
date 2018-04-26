@@ -1,7 +1,4 @@
-import Breadcrumbs from './Breadcrumbs';
-// import BlankLayout from './BlankLayout';
 import BasicLayout from './BasicLayout';
-// import PageHeaderLayout from './PageHeaderLayout';
 import { config } from "utils";
 import { getRouterData } from 'common/router';
 const {  openPages } = config;

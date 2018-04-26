@@ -3,21 +3,21 @@ import PropTypes from 'prop-types';
 import { Layout, Icon, message } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
-import { Route, Redirect, Switch, routerRedux } from 'dva/router';
+// import { Route, Redirect, Switch, routerRedux } from 'dva/router';
+import { Switch, routerRedux } from 'dva/router';
 import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
 import { enquireScreen, unenquireScreen } from 'enquire-js';
 import GlobalHeader from 'components/GlobalHeader';
 import GlobalFooter from 'components/GlobalFooter';
 import SiderMenu from 'components/SiderMenu';
-import NotFound from '../pages/Exception/404';
-import { getRoutes } from 'utils/utils';
+// import NotFound from '../pages/Exception/404';
 import Authorized from 'utils/Authorized';
 import { getMenuData } from 'common/menu';
 import logo from 'assets/logo.svg';
 
 const { Content, Header, Footer } = Layout;
-const { AuthorizedRoute, check } = Authorized;
+const { check } = Authorized;
 
 /**
  * 根据菜单取得重定向地址.
@@ -114,9 +114,9 @@ class BasicLayout extends React.PureComponent {
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;
-    let title = 'Ant Design Pro';
+    let title = 'Umi Antd Pro';
     if (routerData[pathname] && routerData[pathname].name) {
-      title = `${routerData[pathname].name} - Ant Design Pro`;
+      title = `${routerData[pathname].name} - Umi Antd Pro`;
     }
     return title;
   }
@@ -155,7 +155,7 @@ class BasicLayout extends React.PureComponent {
   };
   handleMenuClick = ({ key }) => {
     if (key === 'triggerError') {
-      this.props.dispatch(routerRedux.push('/exception/trigger'));
+      this.props.dispatch(routerRedux.push('/Exception/triggerException'));
       return;
     }
     if (key === 'logout') {
@@ -177,12 +177,10 @@ class BasicLayout extends React.PureComponent {
       collapsed,
       fetchingNotices,
       notices,
-      routerData,
-      match,
       location,
       children
     } = this.props;
-    const bashRedirect = this.getBashRedirect();
+    // const bashRedirect = this.getBashRedirect();
     const layout = (
       <Layout>
         <SiderMenu
@@ -214,9 +212,9 @@ class BasicLayout extends React.PureComponent {
           </Header>
           <Content style={{ margin: '24px 24px 0', height: '100%' }}>
             <Switch>
-              {redirectData.map(item => (
+              {/* {redirectData.map(item => (
                 <Redirect key={item.from} exact from={item.from} to={item.to} />
-              ))}
+              ))} */}
               {/* {getRoutes(match.path, routerData).map(item => (
                 <AuthorizedRoute
                   key={item.key}
@@ -228,23 +226,23 @@ class BasicLayout extends React.PureComponent {
                 />
               ))} */}
               {children}
-              <Redirect exact from="/" to={bashRedirect} />
-              <Route render={NotFound} />
+              {/* <Redirect exact from="/" to={bashRedirect} />
+              <Route render={NotFound} /> */}
             </Switch>
           </Content>
           <Footer style={{ padding: 0 }}>
             <GlobalFooter
               links={[
                 {
-                  key: 'Pro 首页',
-                  title: 'Pro 首页',
-                  href: 'http://pro.ant.design',
+                  key: 'Umi 首页',
+                  title: 'Umi 首页',
+                  href: 'http://umijs.org',
                   blankTarget: true,
                 },
                 {
                   key: 'github',
                   title: <Icon type="github" />,
-                  href: 'https://github.com/ant-design/ant-design-pro',
+                  href: 'https://github.com/xiaohuoni/umi-antd-pro',
                   blankTarget: true,
                 },
                 {
