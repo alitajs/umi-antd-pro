@@ -17,7 +17,6 @@ export default {
       },
       theme: './src/theme.js',
       extraBabelPlugins: [
-        'transform-decorators-legacy',
         ['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }],
       ],
 }
