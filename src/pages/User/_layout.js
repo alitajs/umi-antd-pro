@@ -43,7 +43,7 @@ class UserLayout extends React.PureComponent {
     return title;
   }
   render() {
-    const { children,match} = this.props;
+    const { children } = this.props;
     return (
       <DocumentTitle title={this.getPageTitle()}>
         <div className={styles.container}>
@@ -57,7 +57,8 @@ class UserLayout extends React.PureComponent {
               </div>
               <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
             </div>
-            <Switch>
+            {/* TODO:这里重定向失败，需要修改*/}
+            {/* <Switch> */}
               {children}
             {/* {getRoutes(match.path, routerData).map(item =>
                 (
@@ -69,8 +70,8 @@ class UserLayout extends React.PureComponent {
                   />
                 )
               )} */}
-              <Redirect exact from="/user" to="/user/login" />
-            </Switch>
+              {/* <Redirect exact from="/user" to="/user/login" /> */}
+            {/* </Switch> */}
           </div>
           <GlobalFooter links={links} copyright={copyright} />
         </div>

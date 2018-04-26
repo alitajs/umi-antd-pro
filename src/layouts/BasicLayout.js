@@ -180,6 +180,7 @@ class BasicLayout extends React.PureComponent {
       routerData,
       match,
       location,
+      children
     } = this.props;
     const bashRedirect = this.getBashRedirect();
     const layout = (
@@ -216,7 +217,7 @@ class BasicLayout extends React.PureComponent {
               {redirectData.map(item => (
                 <Redirect key={item.from} exact from={item.from} to={item.to} />
               ))}
-              {getRoutes(match.path, routerData).map(item => (
+              {/* {getRoutes(match.path, routerData).map(item => (
                 <AuthorizedRoute
                   key={item.key}
                   path={item.path}
@@ -225,7 +226,8 @@ class BasicLayout extends React.PureComponent {
                   authority={item.authority}
                   redirectPath="/exception/403"
                 />
-              ))}
+              ))} */}
+              {children}
               <Redirect exact from="/" to={bashRedirect} />
               <Route render={NotFound} />
             </Switch>
