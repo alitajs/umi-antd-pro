@@ -91,7 +91,6 @@ export default {
         }else if(pathname==='/Exception'){
           dispatch(routerRedux.push('/Exception/403'))
         }
-        
       });
     },
   },

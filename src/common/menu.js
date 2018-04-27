@@ -27,7 +27,7 @@ const menuData = [{
     path: 'StepForm/Step1',
   }, {
     name: '高级表单',
-    // authority: 'admin',
+    authority: 'admin',
     path: 'AdvancedForm',
   }],
 }, {
@@ -67,7 +67,7 @@ const menuData = [{
   }, {
     name: '高级详情页',
     path: 'AdvancedProfile',
-    // authority: 'admin',
+    authority: 'admin',
   }],
 }, {
   name: '结果页',

@@ -8,5 +8,8 @@ export default {
       ],
     }],
   ],
+  pages: {
+    '/': { Route: './src/components/Authorized/AuthorizedRoute.js',ignore:'/User' }
+  },
   hashHistory: true
 }
