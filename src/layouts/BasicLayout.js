@@ -122,10 +122,11 @@ class BasicLayout extends React.PureComponent {
     // According to the url parameter to redirect
     // 这里是重定向的,重定向到 url 的 redirect 参数所示地址
     const urlParams = new URL(window.location.href);
-
+    console.log(urlParams);
     const redirect = urlParams.searchParams.get('redirect');
     // Remove the parameters in the url
     if (redirect) {
+      console.log(redirect);
       urlParams.searchParams.delete('redirect');
       window.history.replaceState(null, 'redirect', urlParams.href);
     } else {
@@ -134,8 +135,11 @@ class BasicLayout extends React.PureComponent {
       const authorizedPath = Object.keys(routerData).find(
         item => check(routerData[item].authority, item) && item !== '/'
       );
+      // this.props.dispatch(routerRedux.push(authorizedPath));
       return authorizedPath;
     }
+    // this.props.dispatch(routerRedux.push(redirect));
+    
     return redirect;
   };
   handleMenuCollapse = collapsed => {
@@ -179,6 +183,7 @@ class BasicLayout extends React.PureComponent {
       children
     } = this.props;
     // const bashRedirect = this.getBashRedirect();
+    this.getBashRedirect();
     const layout = (
       <Layout>
         <SiderMenu

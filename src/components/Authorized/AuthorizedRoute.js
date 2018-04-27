@@ -1,25 +1,26 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import Authorized from './Authorized';
+import { getRouterData } from 'common/router';
+
 //umi只会返回render和rest
 class AuthorizedRoute extends React.Component {
   render() {
     const {
-      // component: Component,
       render,
-      // authority,
-      // redirectPath,
+      path,
       ...rest
     } = this.props;
-    console.log("sadsas");
+    const routerData = getRouterData({});
+    const redirectPath = '/User/Login';
+    const authority = routerData[path].authority;
     return (
       <Authorized
-        authority={'admin'}
+        authority={authority}
         noMatch={
           <Route
             {...rest}
-            // render={() => <Redirect to={{ pathname: redirectPath }} />}
-            render={() => <Redirect to={{ pathname: '/User/Login' }} />}
+            render={() => <Redirect to={{ pathname: redirectPath }} />}
           />
         }
       >
