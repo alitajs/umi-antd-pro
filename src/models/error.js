@@ -1,5 +1,5 @@
 import { query403, query401, query404, query500 } from '../services/error';
-
+import delay from 'oni-delay';
 export default {
   namespace: 'error',
 
@@ -36,6 +36,10 @@ export default {
         type: 'trigger',
         payload: '404',
       });
+    },
+    *throwError() {
+      yield delay(0);
+      throw new Error('hi error');
     },
   },
 

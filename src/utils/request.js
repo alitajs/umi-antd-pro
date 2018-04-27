@@ -1,7 +1,8 @@
 import fetch from 'dva/fetch';
 import { notification } from 'antd';
 import router from "umi/router";
-
+import { config } from "utils";
+const {  serverUrl } = config;
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -42,8 +43,9 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options) {
+  url = serverUrl+url;
   const defaultOptions = {
-    credentials: 'include',
+    // credentials: 'include',
   };
   const newOptions = { ...defaultOptions, ...options };
   if (newOptions.method === 'POST' || newOptions.method === 'PUT') {

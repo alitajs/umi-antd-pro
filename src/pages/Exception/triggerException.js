@@ -42,6 +42,11 @@ export default class TriggerException extends PureComponent {
       type: 'error/query404',
     });
   };
+  triggerError = () => {
+    this.props.dispatch({
+      type: 'error/throwError',
+    });
+  };
   render() {
     return (
       <Card>
@@ -57,6 +62,9 @@ export default class TriggerException extends PureComponent {
           </Button>
           <Button type="danger" onClick={this.trigger404}>
             触发404
+          </Button>
+          <Button type="danger" onClick={this.triggerError}>
+            触发 error
           </Button>
         </Spin>
       </Card>

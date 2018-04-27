@@ -1,6 +1,10 @@
 English | [简体中文](./README.zh-CN.md)
 # Umi Antd Pro
 All components and page logic retains the design of Ant Design Pro.
+## Extend
+- dva.js (onError , initialState)
+- Add configuration server address, support build can be previewed.
+- Add antd-pro-server，look .umirc.mock.js
 
 # Ant Design Pro
 
