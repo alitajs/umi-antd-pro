@@ -71,25 +71,10 @@ export default {
         if (typeof window.ga !== 'undefined') {
           window.ga('send', 'pageview', pathname + search);
         }
-        //手动做了重定向
         if(pathname==='/'){
           dispatch({
             type:"init"
           })
-        }else if(pathname==='/Dashboard'){
-          dispatch(routerRedux.push('/Dashboard/Analysis'))
-        }else if(pathname==='/Forms'){
-          dispatch(routerRedux.push('/Forms/BasicForm'))
-        }else if(pathname==='/List'){
-          dispatch(routerRedux.push('/List/TableList'))
-        }else if(pathname==='/List/Search'){
-          dispatch(routerRedux.push('/List/Search/Articles'))
-        }else if(pathname==='/Profile'){
-          dispatch(routerRedux.push('/Profile/BasicProfile'))
-        }else if(pathname==='/Result'){
-          dispatch(routerRedux.push('/Result/Success'))
-        }else if(pathname==='/Exception'){
-          dispatch(routerRedux.push('/Exception/403'))
         }
       });
     },

@@ -28,14 +28,14 @@
   "devDependencies": {
     "mockjs": "^1.0.1-beta3",
     "moment": "^2.22.1",
-    "umi-plugin-routes": "^0.1.2",
+    "umi-plugin-routes": "^0.1.3",
     "cross-env": "^5.1.4"
   },
   "dependencies": {
     "@antv/data-set": "^0.8.7",
-    "@babel/polyfill": "^7.0.0-beta.46",
-    "antd-pro-server": "^1.0.0",
-    "bizcharts": "^3.1.5",
+    "@babel/polyfill": "^7.0.0-beta.47",
+    "antd-pro-server": "^1.0.1",
+    "bizcharts": "^3.1.7",
     "bizcharts-plugin-slider": "^2.0.3",
     "enquire-js": "^0.2.1",
     "lodash-decorators": "^5.0.0",
@@ -48,8 +48,8 @@
     "react-router-breadcrumbs-hoc": "^2.1.0",
     "react-transition-group": "^2.3.1",
     "rollbar": "^2.3.9",
-    "umi": "^1.2.2",
-    "umi-plugin-dva": "*",
+    "umi": "^1.3.1",
+    "umi-plugin-dva": "^0.7.1",
     "url-polyfill": "^1.0.13"
   }
 }
