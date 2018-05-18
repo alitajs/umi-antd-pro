@@ -34,7 +34,7 @@ export default class Register extends Component {
     prefix: '86',
   };
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const account = this.props.form.getFieldValue('mail');
     if (nextProps.register.status === 'ok') {
       this.props.dispatch(routerRedux.push({

@@ -24,7 +24,7 @@ export default class Pie extends Component {
     window.addEventListener('resize', this.resize);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.data !== nextProps.data) {
       // because of charts data create when rendered
       // so there is a trick for get rendered time

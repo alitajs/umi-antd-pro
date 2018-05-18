@@ -6,10 +6,17 @@ export default {
       {
         update(routes) {
           return [
-            ...routes,
-            // ...require("./src/pages/_routes")
+            // ...require("./src/pages/_routes"),
+            ...routes
           ];
         }
+      }
+    ],
+    [
+      "umi-plugin-dll",
+      {
+        exclude: [],
+        include: ["dva", "dva/router", "dva/saga", "dva/fetch", "antd/es"]
       }
     ]
   ],

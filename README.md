@@ -6,6 +6,23 @@
 - dva.js onError 和 initialState
 - 增加配置服务器地址，支持build之后可预览
 - 增加[antd-pro-server](https://github.com/xiaohuoni/antd-pro-server)，主要修改.umirc.mock.js
+20180517
+- 去除手动重定向路由，加入umi配置路由pages/_route.json
+20180518 更新umi@1.3.3
+- 去掉NO_PROXY，umi@1.3.3 已内置关闭MOCK=none
+- 更新React 16.3.0，修改componentWillReceiveProps为UNSAFE_componentWillReceiveProps
+- 增加插件umi-plugin-dll，二次编译速度提升70%
+
+如果出现[umi/#495](https://github.com/umijs/umi/issues/495)问题，可以先注释掉.umirc.js里
+```js
+  [
+    "umi-plugin-dll",
+    {
+      exclude: [],
+      include: ["dva", "dva/router", "dva/saga", "dva/fetch", "antd/es"]
+    }
+  ]
+```
 
 # Ant Design Pro
 

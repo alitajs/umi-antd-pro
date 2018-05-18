@@ -24,7 +24,7 @@ class StandardTable extends PureComponent {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // clean state
     if (nextProps.selectedRows.length === 0) {
       const needTotalList = initTotalList(nextProps.columns);

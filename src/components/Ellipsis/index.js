@@ -54,7 +54,7 @@ export default class Ellipsis extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.lines !== nextProps.lines) {
       this.computeLine();
     }

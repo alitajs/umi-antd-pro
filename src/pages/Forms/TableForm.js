@@ -11,7 +11,7 @@ export default class TableForm extends PureComponent {
       loading: false,
     };
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if ('value' in nextProps) {
       this.setState({
         data: nextProps.value,
