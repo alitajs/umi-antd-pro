@@ -6,6 +6,7 @@ import { connect } from 'dva';
 import { routerRedux } from 'dva/router';
 import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
+import pathToRegexp from 'path-to-regexp';
 import { enquireScreen, unenquireScreen } from 'enquire-js';
 import GlobalHeader from 'components/GlobalHeader';
 import GlobalFooter from 'components/GlobalFooter';
@@ -113,8 +114,15 @@ class BasicLayout extends React.PureComponent {
     const { routerData, location } = this.props;
     const { pathname } = location;
     let title = 'Umi Antd Pro';
-    if (routerData[pathname] && routerData[pathname].name) {
-      title = `${routerData[pathname].name} - Umi Antd Pro`;
+    let currRouterData = null;
+    // match params path
+    Object.keys(routerData).forEach(key => {
+      if (pathToRegexp(key).test(pathname)) {
+        currRouterData = routerData[key];
+      }
+    });
+    if (currRouterData && currRouterData.name) {
+      title = `${currRouterData.name} - Ant Design Pro`;
     }
     return title;
   }

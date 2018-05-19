@@ -41,6 +41,9 @@ for (let i = 0; i < 7; i += 1) {
     total: 323234,
   });
 }
+const Yuan = ({ children }) => (
+  <span dangerouslySetInnerHTML={{ __html: yuan(children) }} /> /* eslint-disable-line react/no-danger */
+);
 
 @connect(({ chart, loading }) => ({
   chart,
@@ -252,7 +255,7 @@ export default class Analysis extends Component {
                   <Icon type="info-circle-o" />
                 </Tooltip>
               }
-              total={yuan(126560)}
+              total={() => <Yuan>126560</Yuan>}
               footer={<Field label="日均销售额" value={`￥${numeral(12423).format('0,0')}`} />}
               contentHeight={46}
             >
@@ -451,9 +454,11 @@ export default class Analysis extends Component {
               <Pie
                 hasLegend
                 subTitle="销售额"
-                total={yuan(salesPieData.reduce((pre, now) => now.y + pre, 0))}
+                total={
+                  () => <Yuan>{salesPieData.reduce((pre, now) => now.y + pre, 0)}</Yuan>
+                }
                 data={salesPieData}
-                valueFormat={val => yuan(val)}
+                valueFormat={value => <Yuan>{value}</Yuan>}
                 height={248}
                 lineWidth={4}
               />

@@ -1,10 +1,10 @@
 {
   "name": "umi-antd-pro",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "umi example with ant design pro",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env HARD_SOURCE=none umi dev",
+    "start": "cross-env DEBUG=umi*,af-webpack* HARD_SOURCE=none COMPILE_ON_DEMAND=none umi dev",
     "start:no-proxy": "cross-env MOCK=none umi dev",
     "build": "umi build",
     "lint": "eslint --ext .js src test",

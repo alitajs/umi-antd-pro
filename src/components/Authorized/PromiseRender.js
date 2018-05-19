@@ -8,7 +8,7 @@ export default class PromiseRender extends React.PureComponent {
   componentDidMount() {
     this.setRenderComponent(this.props);
   }
-  UNSAFE_componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps(nextProps) {
     // new Props enter
     this.setRenderComponent(nextProps);
   }
@@ -32,7 +32,7 @@ export default class PromiseRender extends React.PureComponent {
   // AuthorizedRoute is already instantiated
   // Authorized  render is already instantiated, children is no instantiated
   // Secured is not instantiated
-  checkIsInstantiation = (target) => {
+  checkIsInstantiation = target => {
     if (!React.isValidElement(target)) {
       return target;
     }
