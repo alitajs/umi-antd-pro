@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Card, Steps } from 'antd';
 import PageHeaderLayout from '../../../layouts/PageHeaderLayout';
-import NotFound from '../../Exception/404';
+// import NotFound from '../../Exception/404';
 import styles from '../style.less';
 
 const { Step } = Steps;
