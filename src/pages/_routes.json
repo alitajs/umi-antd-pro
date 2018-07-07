@@ -10,6 +10,11 @@
     "redirect": "/Forms/BasicForm"
   },
   {
+    "path": "/Forms/StepForm",
+    "exact": true,
+    "redirect": "/Forms/StepForm/Step1"
+  },
+  {
     "path": "/List",
     "exact": true,
     "redirect": "/List/TableList"
