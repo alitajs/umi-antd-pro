@@ -110,8 +110,7 @@ export const getRouterData = (app) => {
     // eg . /list/:type/user/info/:id
     router = {
       ...router,
-      name: router.name || menuItem.name,
-      authority: router.authority || menuItem.authority,
+      name: router.name || menuItem.name
     };
     routerData[path] = router;
   });

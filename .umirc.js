@@ -4,7 +4,6 @@ export default {
     ["umi-plugin-react",{
       antd:true,
       dva:true,
-      polyfills: ['ie9'],
       routes: {
         update(routes) {
           return [...require("./src/pages/_routes"), ...routes];
@@ -16,12 +15,9 @@ export default {
       }
     }]
   ],
-  // pages: {
-  //   "/": {
-  //     Route: "./src/components/Authorized/AuthorizedRoute.js",
-  //     ignore: "/User"
-  //   }
-  // },
+  targets:{
+    ie:10
+  },
   history: 'hash',
   publicPath:"",
     alias:{

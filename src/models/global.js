@@ -35,7 +35,7 @@ export default {
     },
     *init({payload},{put}){
       const author = getAuthority();
-      if(author === 'guest'||!author){
+      if(!author){
         yield put(routerRedux.push('/User/Login'))
       }else{
         yield put(routerRedux.push('/Dashboard/Analysis'))
