@@ -32,6 +32,7 @@
     "mockjs": "^1.0.1-beta3",
     "moment": "^2.22.1",
     "umi": "^2.1.2",
+    "umi-plugin-authorize": "^0.0.2",
     "umi-plugin-react": "^1.1.1"
   },
   "dependencies": {

@@ -127,12 +127,11 @@ function formatter(data, parentPath = '/', parentAuthority) {
     const result = {
       ...item,
       path,
-      authority: item.authority || parentAuthority,
+      authority: item.authority || parentAuthority||'admin',
     };
     if (item.children) {
       result.children = formatter(item.children, `${parentPath}${item.path}/`, item.authority);
     }
-    console.log(result);
     
     return result;
   });

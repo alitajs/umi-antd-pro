@@ -14,7 +14,6 @@ import SiderMenu from "components/SiderMenu";
 import Authorized from "utils/Authorized";
 import { getMenuData } from "common/menu";
 import logo from "assets/logo.svg";
-import AuthorizedRoute from "../components/Authorized/AuthorizedRoute.js";
 
 const { Content, Header, Footer } = Layout;
 const { check } = Authorized;
@@ -131,7 +130,6 @@ class BasicLayout extends React.PureComponent {
     // According to the url parameter to redirect
     // 这里是重定向的,重定向到 url 的 redirect 参数所示地址
     const urlParams = new URL(window.location.href);
-    console.log(urlParams);
     const redirect = urlParams.searchParams.get("redirect");
     // Remove the parameters in the url
     if (redirect) {
@@ -260,13 +258,11 @@ class BasicLayout extends React.PureComponent {
     );
 
     return (
-      <AuthorizedRoute>
         <DocumentTitle title={this.getPageTitle()}>
           <ContainerQuery query={query}>
             {params => <div className={classNames(params)}>{layout}</div>}
           </ContainerQuery>
         </DocumentTitle>
-      </AuthorizedRoute>
     );
   }
 }
