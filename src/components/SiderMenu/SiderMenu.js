@@ -154,7 +154,7 @@ export default class SiderMenu extends PureComponent {
       .map(item => {
         // make dom
         const ItemDom = this.getSubMenuOrItem(item);
-        return this.checkPermissionItem(item.authority, ItemDom);
+        return ItemDom;
       })
       .filter(item => item);
   };
@@ -172,14 +172,7 @@ export default class SiderMenu extends PureComponent {
       return `/${path || ''}`.replace(/\/+/g, '/');
     }
   };
-  // permission to check
-  checkPermissionItem = (authority, ItemDom) => {
-    if (this.props.Authorized && this.props.Authorized.check) {
-      const { check } = this.props.Authorized;
-      return check(authority, ItemDom);
-    }
-    return ItemDom;
-  };
+
   isMainMenu = key => {
     return this.menus.some(item => key && (item.key === key || item.path === key));
   };
