@@ -6,16 +6,16 @@ import styles from './index.less';
 // TODO: 添加逻辑
 
 class EditableLinkGroup extends PureComponent {
-  static defaultProps = {
-    links: [],
-    onAdd: () => {},
-    linkElement: 'a',
-  };
-
   static propTypes = {
     links: PropTypes.array,
     onAdd: PropTypes.func,
     linkElement: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+  };
+
+  static defaultProps = {
+    links: [],
+    onAdd: () => {},
+    linkElement: 'a',
   };
 
   render() {

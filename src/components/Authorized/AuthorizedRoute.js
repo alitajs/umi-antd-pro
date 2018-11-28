@@ -1,19 +1,15 @@
-import React from "react";
-import { Route, Redirect } from "react-router-dom";
-import {getAuthority} from "utils/authority";
+import React from 'react';
+import { Route, Redirect } from 'react-router-dom';
+import Authorized from './Authorized';
 
-//umi只会返回render和rest
-class AuthorizedRoute extends React.Component {
-  render() {
-    const { component: Component ,render}= this.props;
-    const redirectPath = "/User/Login";
-    const authority = getAuthority();
-    if(authority){
-        return (Component ? <Component {...this.props} /> : render(this.props))
-    }else{
-      return (<Redirect to={{ pathname: redirectPath }} />)
-    }
-  }
-}
+// TODO: umi只会返回render和rest
+const AuthorizedRoute = ({ component: Component, render, authority, redirectPath, ...rest }) => (
+  <Authorized
+    authority={authority}
+    noMatch={<Route {...rest} render={() => <Redirect to={{ pathname: redirectPath }} />} />}
+  >
+    <Route {...rest} render={props => (Component ? <Component {...props} /> : render(props))} />
+  </Authorized>
+);
 
 export default AuthorizedRoute;

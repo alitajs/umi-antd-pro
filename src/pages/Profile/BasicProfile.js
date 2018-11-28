@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
 import { Card, Badge, Table, Divider } from 'antd';
-import DescriptionList from 'components/DescriptionList';
-import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import DescriptionList from '@/components/DescriptionList';
+import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import styles from './BasicProfile.less';
 
 const { Description } = DescriptionList;
@@ -23,11 +23,11 @@ const progressColumns = [
     dataIndex: 'status',
     key: 'status',
     render: text =>
-      (text === 'success' ? (
+      text === 'success' ? (
         <Badge status="success" text="成功" />
       ) : (
         <Badge status="processing" text="进行中" />
-      )),
+      ),
   },
   {
     title: '操作员ID',
@@ -45,7 +45,7 @@ const progressColumns = [
   profile,
   loading: loading.effects['profile/fetchBasic'],
 }))
-export default class BasicProfile extends Component {
+class BasicProfile extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
@@ -60,7 +60,7 @@ export default class BasicProfile extends Component {
     if (basicGoods.length) {
       let num = 0;
       let amount = 0;
-      basicGoods.forEach((item) => {
+      basicGoods.forEach(item => {
         num += Number(item.num);
         amount += Number(item.amount);
       });
@@ -142,7 +142,7 @@ export default class BasicProfile extends Component {
       },
     ];
     return (
-      <PageHeaderLayout title="基础详情页">
+      <PageHeaderWrapper title="基础详情页">
         <Card bordered={false}>
           <DescriptionList size="large" title="退款申请" style={{ marginBottom: 32 }}>
             <Description term="取货单号">1000000000</Description>
@@ -177,7 +177,9 @@ export default class BasicProfile extends Component {
             columns={progressColumns}
           />
         </Card>
-      </PageHeaderLayout>
+      </PageHeaderWrapper>
     );
   }
 }
+
+export default BasicProfile;

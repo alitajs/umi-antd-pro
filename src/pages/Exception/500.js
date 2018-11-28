@@ -1,7 +1,15 @@
 import React from 'react';
-import { Link } from 'dva/router';
-import Exception from 'components/Exception';
+import { formatMessage } from 'umi/locale';
+import Link from 'umi/link';
+import Exception from '@/components/Exception';
 
-export default () => (
-  <Exception type="500" style={{ minHeight: 500, height: '80%' }} linkElement={Link} />
+const Exception500 = () => (
+  <Exception
+    type="500"
+    desc={formatMessage({ id: 'app.exception.description.500' })}
+    linkElement={Link}
+    backText={formatMessage({ id: 'app.exception.back' })}
+  />
 );
+
+export default Exception500;

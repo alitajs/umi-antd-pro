@@ -1,275 +1,244 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { Layout, Icon, message } from "antd";
-import DocumentTitle from "react-document-title";
-import { connect } from "dva";
-import { routerRedux } from "dva/router";
-import { ContainerQuery } from "react-container-query";
-import classNames from "classnames";
-import pathToRegexp from "path-to-regexp";
-import { enquireScreen, unenquireScreen } from "enquire-js";
-import GlobalHeader from "components/GlobalHeader";
-import GlobalFooter from "components/GlobalFooter";
-import SiderMenu from "components/SiderMenu";
-import Authorized from "utils/Authorized";
-import { getMenuData } from "common/menu";
-import logo from "assets/logo.svg";
+import React, { Suspense } from 'react';
+import { Layout } from 'antd';
+import DocumentTitle from 'react-document-title';
+import isEqual from 'lodash/isEqual';
+import memoizeOne from 'memoize-one';
+import { connect } from 'dva';
+import { ContainerQuery } from 'react-container-query';
+import classNames from 'classnames';
+import pathToRegexp from 'path-to-regexp';
+import Media from 'react-media';
+import { formatMessage } from 'umi/locale';
+import Authorized from '@/utils/Authorized';
+import logo from '../assets/logo.svg';
+import Footer from './Footer';
+import Header from './Header';
+import Context from './MenuContext';
+import Exception403 from '../pages/Exception/403';
+import PageLoading from '@/components/PageLoading';
+import SiderMenu from '@/components/SiderMenu';
 
-const { Content, Header, Footer } = Layout;
-const { check } = Authorized;
+// lazy load SettingDrawer
+const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
 
-/**
- * 根据菜单取得重定向地址.
- */
-const redirectData = [];
-const getRedirect = item => {
-  if (item && item.children) {
-    if (item.children[0] && item.children[0].path) {
-      redirectData.push({
-        from: `${item.path}`,
-        to: `${item.children[0].path}`
-      });
-      item.children.forEach(children => {
-        getRedirect(children);
-      });
-    }
-  }
-};
-getMenuData().forEach(getRedirect);
-
-/**
- * 获取面包屑映射
- * @param {Object} menuData 菜单配置
- * @param {Object} routerData 路由配置
- */
-const getBreadcrumbNameMap = (menuData, routerData) => {
-  const result = {};
-  const childResult = {};
-  for (const i of menuData) {
-    if (!routerData[i.path]) {
-      result[i.path] = i;
-    }
-    if (i.children) {
-      Object.assign(childResult, getBreadcrumbNameMap(i.children, routerData));
-    }
-  }
-  return Object.assign({}, routerData, result, childResult);
-};
+const { Content } = Layout;
 
 const query = {
-  "screen-xs": {
-    maxWidth: 575
+  'screen-xs': {
+    maxWidth: 575,
   },
-  "screen-sm": {
+  'screen-sm': {
     minWidth: 576,
-    maxWidth: 767
+    maxWidth: 767,
   },
-  "screen-md": {
+  'screen-md': {
     minWidth: 768,
-    maxWidth: 991
+    maxWidth: 991,
   },
-  "screen-lg": {
+  'screen-lg': {
     minWidth: 992,
-    maxWidth: 1199
+    maxWidth: 1199,
   },
-  "screen-xl": {
-    minWidth: 1200
-  }
+  'screen-xl': {
+    minWidth: 1200,
+    maxWidth: 1599,
+  },
+  'screen-xxl': {
+    minWidth: 1600,
+  },
 };
 
-let isMobile;
-enquireScreen(b => {
-  isMobile = b;
-});
-
 class BasicLayout extends React.PureComponent {
-  static childContextTypes = {
-    location: PropTypes.object,
-    breadcrumbNameMap: PropTypes.object
-  };
-  state = {
-    isMobile
-  };
-  getChildContext() {
-    const { location, routerData } = this.props;
+  constructor(props) {
+    super(props);
+    this.getPageTitle = memoizeOne(this.getPageTitle);
+    this.matchParamsPath = memoizeOne(this.matchParamsPath, isEqual);
+  }
+
+  componentDidMount() {
+    const {
+      dispatch,
+      route: { routes, authority },
+    } = this.props;
+    dispatch({
+      type: 'user/fetchCurrent',
+    });
+    dispatch({
+      type: 'setting/getSetting',
+    });
+    dispatch({
+      type: 'menu/getMenuData',
+      payload: { routes, authority },
+    });
+  }
+
+  componentDidUpdate(preProps) {
+    // After changing to phone mode,
+    // if collapsed is true, you need to click twice to display
+    const { collapsed, isMobile } = this.props;
+    if (isMobile && !preProps.isMobile && !collapsed) {
+      this.handleMenuCollapse(false);
+    }
+  }
+
+  getContext() {
+    const { location, breadcrumbNameMap } = this.props;
     return {
       location,
-      breadcrumbNameMap: getBreadcrumbNameMap(getMenuData(), routerData)
+      breadcrumbNameMap,
     };
   }
-  componentDidMount() {
-    this.enquireHandler = enquireScreen(mobile => {
-      this.setState({
-        isMobile: mobile
-      });
-    });
-    this.props.dispatch({
-      type: "user/fetchCurrent"
-    });
-  }
-  componentWillUnmount() {
-    unenquireScreen(this.enquireHandler);
-  }
-  getPageTitle() {
-    const { routerData, location } = this.props;
-    const { pathname } = location;
-    let title = "Umi Antd Pro";
-    let currRouterData = null;
-    // match params path
-    Object.keys(routerData).forEach(key => {
-      if (pathToRegexp(key).test(pathname)) {
-        currRouterData = routerData[key];
-      }
-    });
-    if (currRouterData && currRouterData.name) {
-      title = `${currRouterData.name} - Ant Design Pro`;
-    }
-    return title;
-  }
-  getBashRedirect = () => {
-    // According to the url parameter to redirect
-    // 这里是重定向的,重定向到 url 的 redirect 参数所示地址
-    const urlParams = new URL(window.location.href);
-    const redirect = urlParams.searchParams.get("redirect");
-    // Remove the parameters in the url
-    if (redirect) {
-      console.log(redirect);
-      urlParams.searchParams.delete("redirect");
-      window.history.replaceState(null, "redirect", urlParams.href);
-    } else {
-      const { routerData } = this.props;
-      // get the first authorized route path in routerData
-      const authorizedPath = Object.keys(routerData).find(
-        item => check(routerData[item].authority, item) && item !== "/"
-      );
-      // this.props.dispatch(routerRedux.push(authorizedPath));
-      return authorizedPath;
-    }
-    // this.props.dispatch(routerRedux.push(redirect));
 
-    return redirect;
+  /**
+   * 获取面包屑映射
+   * @param {Object} menuData 菜单配置
+   */
+  getBreadcrumbNameMap() {
+    const routerMap = {};
+    const { menuData } = this.props;
+    const flattenMenuData = data => {
+      data.forEach(menuItem => {
+        if (menuItem.children) {
+          flattenMenuData(menuItem.children);
+        }
+        // Reduce memory usage
+        routerMap[menuItem.path] = menuItem;
+      });
+    };
+    flattenMenuData(menuData);
+    return routerMap;
+  }
+
+  matchParamsPath = (pathname, breadcrumbNameMap) => {
+    const pathKey = Object.keys(breadcrumbNameMap).find(key => pathToRegexp(key).test(pathname));
+    return breadcrumbNameMap[pathKey];
   };
+
+  getPageTitle = (pathname, breadcrumbNameMap) => {
+    const currRouterData = this.matchParamsPath(pathname, breadcrumbNameMap);
+
+    if (!currRouterData) {
+      return 'Ant Design Pro';
+    }
+    const pageName = formatMessage({
+      id: currRouterData.locale || currRouterData.name,
+      defaultMessage: currRouterData.name,
+    });
+
+    return `${pageName} - Ant Design Pro`;
+  };
+
+  getLayoutStyle = () => {
+    const { fixSiderbar, isMobile, collapsed, layout } = this.props;
+    if (fixSiderbar && layout !== 'topmenu' && !isMobile) {
+      return {
+        paddingLeft: collapsed ? '80px' : '256px',
+      };
+    }
+    return null;
+  };
+
+  getContentStyle = () => {
+    const { fixedHeader } = this.props;
+    return {
+      margin: '24px 24px 0',
+      paddingTop: fixedHeader ? 64 : 0,
+    };
+  };
+
   handleMenuCollapse = collapsed => {
-    this.props.dispatch({
-      type: "global/changeLayoutCollapsed",
-      payload: collapsed
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'global/changeLayoutCollapsed',
+      payload: collapsed,
     });
   };
-  handleNoticeClear = type => {
-    message.success(`清空了${type}`);
-    this.props.dispatch({
-      type: "global/clearNotices",
-      payload: type
-    });
-  };
-  handleMenuClick = ({ key }) => {
-    if (key === "triggerError") {
-      this.props.dispatch(routerRedux.push("/Exception/triggerException"));
-      return;
+
+  renderSettingDrawer = () => {
+    // Do not render SettingDrawer in production
+    // unless it is deployed in preview.pro.ant.design as demo
+    if (process.env.NODE_ENV === 'production' && APP_TYPE !== 'site') {
+      return null;
     }
-    if (key === "logout") {
-      this.props.dispatch({
-        type: "login/logout"
-      });
-    }
+    return <SettingDrawer />;
   };
-  handleNoticeVisibleChange = visible => {
-    if (visible) {
-      this.props.dispatch({
-        type: "global/fetchNotices"
-      });
-    }
-  };
+
   render() {
     const {
-      currentUser,
-      collapsed,
-      fetchingNotices,
-      notices,
-      location,
-      children
+      navTheme,
+      layout: PropsLayout,
+      children,
+      location: { pathname },
+      isMobile,
+      menuData,
+      breadcrumbNameMap,
     } = this.props;
-    // const bashRedirect = this.getBashRedirect();
-    this.getBashRedirect();
+
+    const isTop = PropsLayout === 'topmenu';
+    const routerConfig = this.matchParamsPath(pathname, breadcrumbNameMap);
+
     const layout = (
       <Layout>
-        <SiderMenu
-          logo={logo}
-          // 不带Authorized参数的情况下如果没有权限,会强制跳到403界面
-          // If you do not have the Authorized parameter
-          // you will be forced to jump to the 403 interface without permission
-          Authorized={Authorized}
-          menuData={getMenuData()}
-          collapsed={collapsed}
-          location={location}
-          isMobile={this.state.isMobile}
-          onCollapse={this.handleMenuCollapse}
-        />
-        <Layout>
-          <Header style={{ padding: 0 }}>
-            <GlobalHeader
-              logo={logo}
-              currentUser={currentUser}
-              fetchingNotices={fetchingNotices}
-              notices={notices}
-              collapsed={collapsed}
-              isMobile={this.state.isMobile}
-              onNoticeClear={this.handleNoticeClear}
-              onCollapse={this.handleMenuCollapse}
-              onMenuClick={this.handleMenuClick}
-              onNoticeVisibleChange={this.handleNoticeVisibleChange}
-            />
-          </Header>
-          <Content style={{ margin: "24px 24px 0", height: "100%" }}>
-            {children}
+        {isTop && !isMobile ? null : (
+          <SiderMenu
+            logo={logo}
+            theme={navTheme}
+            onCollapse={this.handleMenuCollapse}
+            menuData={menuData}
+            isMobile={isMobile}
+            {...this.props}
+          />
+        )}
+        <Layout
+          style={{
+            ...this.getLayoutStyle(),
+            minHeight: '100vh',
+          }}
+        >
+          <Header
+            menuData={menuData}
+            handleMenuCollapse={this.handleMenuCollapse}
+            logo={logo}
+            isMobile={isMobile}
+            {...this.props}
+          />
+          <Content style={this.getContentStyle()}>
+            <Authorized
+              authority={routerConfig&&routerConfig.authority}
+              noMatch={<Exception403 />}
+            >
+              {children}
+            </Authorized>
           </Content>
-          <Footer style={{ padding: 0 }}>
-            <GlobalFooter
-              links={[
-                {
-                  key: "Umi 首页",
-                  title: "Umi 首页",
-                  href: "http://umijs.org",
-                  blankTarget: true
-                },
-                {
-                  key: "github",
-                  title: <Icon type="github" />,
-                  href: "https://github.com/xiaohuoni/umi-antd-pro",
-                  blankTarget: true
-                },
-                {
-                  key: "Ant Design",
-                  title: "Ant Design",
-                  href: "http://ant.design",
-                  blankTarget: true
-                }
-              ]}
-              copyright={
-                <Fragment>
-                  Copyright <Icon type="copyright" /> 2018
-                  蚂蚁金服体验技术部出品
-                </Fragment>
-              }
-            />
-          </Footer>
+          <Footer />
         </Layout>
       </Layout>
     );
-
     return (
-        <DocumentTitle title={this.getPageTitle()}>
+      <React.Fragment>
+        <DocumentTitle title={this.getPageTitle(pathname, breadcrumbNameMap)}>
           <ContainerQuery query={query}>
-            {params => <div className={classNames(params)}>{layout}</div>}
+            {params => (
+              <Context.Provider value={this.getContext()}>
+                <div className={classNames(params)}>{layout}</div>
+              </Context.Provider>
+            )}
           </ContainerQuery>
         </DocumentTitle>
+        <Suspense fallback={<PageLoading />}>{this.renderSettingDrawer()}</Suspense>
+      </React.Fragment>
     );
   }
 }
 
-export default connect(({ user, global, loading }) => ({
-  currentUser: user.currentUser,
+export default connect(({ global, setting, menu }) => ({
   collapsed: global.collapsed,
-  fetchingNotices: loading.effects["global/fetchNotices"],
-  notices: global.notices
-}))(BasicLayout);
+  layout: setting.layout,
+  menuData: menu.menuData,
+  breadcrumbNameMap: menu.breadcrumbNameMap,
+  ...setting,
+}))(props => (
+  <Media query="(max-width: 599px)">
+    {isMobile => <BasicLayout {...props} isMobile={isMobile} />}
+  </Media>
+));
