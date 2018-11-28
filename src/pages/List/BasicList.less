@@ -1,5 +1,5 @@
-@import "~antd/lib/style/themes/default.less";
-@import "../../utils/utils.less";
+@import '~antd/lib/style/themes/default.less';
+@import '~@/utils/utils.less';
 
 .standardList {
   :global {
@@ -172,5 +172,24 @@
         top: 0;
       }
     }
+  }
+}
+
+.standardListForm {
+  :global {
+    .ant-form-item {
+      margin-bottom: 12px;
+      &:last-child {
+        padding-top: 4px;
+        margin-bottom: 32px;
+      }
+    }
+  }
+}
+
+.formResult {
+  width: 100%;
+  [class^='title'] {
+    margin-bottom: 8px;
   }
 }

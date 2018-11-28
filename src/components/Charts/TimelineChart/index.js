@@ -6,7 +6,7 @@ import autoHeight from '../autoHeight';
 import styles from './index.less';
 
 @autoHeight()
-export default class TimelineChart extends React.Component {
+class TimelineChart extends React.Component {
   render() {
     const {
       title,
@@ -44,8 +44,7 @@ export default class TimelineChart extends React.Component {
     });
 
     const dv = ds.createView();
-    dv
-      .source(data)
+    dv.source(data)
       .transform({
         type: 'filter',
         callback: obj => {
@@ -121,3 +120,5 @@ export default class TimelineChart extends React.Component {
     );
   }
 }
+
+export default TimelineChart;

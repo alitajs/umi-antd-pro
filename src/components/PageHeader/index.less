@@ -4,13 +4,17 @@
   background: @component-background;
   padding: 16px 32px 0 32px;
   border-bottom: @border-width-base @border-style-base @border-color-split;
-
+  .wide {
+    max-width: 1200px;
+    margin: auto;
+  }
   .detail {
     display: flex;
   }
 
   .row {
     display: flex;
+    width: 100%;
   }
 
   .breadcrumb {
@@ -18,11 +22,13 @@
   }
 
   .tabs {
-    margin: 0 0 -17px -8px;
+    margin: 0 0 0 -8px;
 
     :global {
+      // 1px 可以让选中效果显示完成
       .ant-tabs-bar {
-        border-bottom: @border-width-base @border-style-base @border-color-split;
+        border-bottom: none;
+        margin-bottom: 1px;
       }
     }
   }
@@ -62,12 +68,18 @@
   }
 
   .title,
+  .content {
+    flex: auto;
+  }
+
   .action,
-  .content,
   .extraContent,
   .main {
-    // IE auto is no have height
-    flex: 1;
+    flex: 0 1 auto;
+  }
+
+  .main {
+    width: 100%;
   }
 
   .title,

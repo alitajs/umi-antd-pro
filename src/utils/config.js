@@ -1,7 +1,7 @@
 const isDEV = true;
 module.exports = {
-  name: '风控管理系统',
-  prefix: 'risk04101425',
-  openPages: ['/User','/User/Login','/User/Register','/User/RegisterResult'],
+  name: 'antd-pro',
+  prefix: 'pro',
+  openPages: ['/User','/user/login','/User/Login','/User/Register','/User/RegisterResult'],
   serverUrl:isDEV?'':'http://localhost:3000'
 }

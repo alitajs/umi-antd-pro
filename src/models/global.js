@@ -1,6 +1,4 @@
-import { queryNotices } from '../services/api';
-import { getAuthority } from 'utils/authority';
-import { routerRedux } from 'dva/router';
+import { queryNotices } from '@/services/api';
 
 export default {
   namespace: 'global',
@@ -11,15 +9,21 @@ export default {
   },
 
   effects: {
-    *fetchNotices(_, { call, put }) {
+    *fetchNotices(_, { call, put, select }) {
       const data = yield call(queryNotices);
       yield put({
         type: 'saveNotices',
         payload: data,
       });
+      const unreadCount = yield select(
+        state => state.global.notices.filter(item => !item.read).length
+      );
       yield put({
         type: 'user/changeNotifyCount',
-        payload: data.length,
+        payload: {
+          totalCount: data.length,
+          unreadCount,
+        },
       });
     },
     *clearNotices({ payload }, { put, select }) {
@@ -28,19 +32,39 @@ export default {
         payload,
       });
       const count = yield select(state => state.global.notices.length);
+      const unreadCount = yield select(
+        state => state.global.notices.filter(item => !item.read).length
+      );
       yield put({
         type: 'user/changeNotifyCount',
-        payload: count,
+        payload: {
+          totalCount: count,
+          unreadCount,
+        },
       });
     },
-    *init({payload},{put}){
-      const author = getAuthority();
-      if(!author){
-        yield put(routerRedux.push('/User/Login'))
-      }else{
-        yield put(routerRedux.push('/Dashboard/Analysis'))
-      }
-    }
+    *changeNoticeReadState({ payload }, { put, select }) {
+      const notices = yield select(state =>
+        state.global.notices.map(item => {
+          const notice = { ...item };
+          if (notice.id === payload) {
+            notice.read = true;
+          }
+          return notice;
+        })
+      );
+      yield put({
+        type: 'saveNotices',
+        payload: notices,
+      });
+      yield put({
+        type: 'user/changeNotifyCount',
+        payload: {
+          totalCount: notices.length,
+          unreadCount: notices.filter(item => !item.read).length,
+        },
+      });
+    },
   },
 
   reducers: {
@@ -65,16 +89,11 @@ export default {
   },
 
   subscriptions: {
-    setup({ history,dispatch }) {
+    setup({ history }) {
       // Subscribe history(url) change, trigger `load` action if pathname is `/`
       return history.listen(({ pathname, search }) => {
         if (typeof window.ga !== 'undefined') {
           window.ga('send', 'pageview', pathname + search);
-        }
-        if(pathname==='/'){
-          dispatch({
-            type:"init"
-          })
         }
       });
     },

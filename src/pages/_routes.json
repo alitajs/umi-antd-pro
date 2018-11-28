@@ -1,42 +1,55 @@
 [
   {
-    "path": "/Dashboard",
+    "path": "/",
     "exact": true,
-    "redirect": "/Dashboard/Analysis"
+    "redirect": "/dashboard/analysis"
   },
   {
-    "path": "/Forms",
+    "path": "/dashboard",
     "exact": true,
-    "redirect": "/Forms/BasicForm"
+    "redirect": "/dashboard/analysis"
   },
   {
-    "path": "/Forms/StepForm",
+    "path": "/form",
     "exact": true,
-    "redirect": "/Forms/StepForm/Step1"
+    "redirect": "/form/basicform"
   },
   {
-    "path": "/List",
+    "path": "/form/stepform",
     "exact": true,
-    "redirect": "/List/TableList"
+    "redirect": "/form/stepForm/info"
   },
   {
-    "path": "/List/Search",
+    "path": "/list",
     "exact": true,
-    "redirect": "/List/Search/Articles"
+    "redirect": "/list/tableList"
   },
   {
-    "path": "/Profile",
+    "path": "/list/search",
     "exact": true,
-    "redirect": "/Profile/BasicProfile"
+    "redirect": "/list/search/articles"
   },
   {
-    "path": "/Result",
+    "path": "/profile",
     "exact": true,
-    "redirect": "/Result/Success"
+    "redirect": "/profile/basicprofile"
   },
   {
-    "path": "/Exception",
+    "path": "/result",
     "exact": true,
-    "redirect": "/Exception/403"
+    "redirect": "/result/success"
+  },
+  {
+    "path": "/exception",
+    "exact": true,
+    "redirect": "/exception/403"
+  },{
+    "path": "/account/center",
+    "exact": true,
+    "redirect": "/account/center/articles"
+  },{
+    "path": "/account/settings",
+    "exact": true,
+    "redirect": "/account/settings/base"
   }
 ]

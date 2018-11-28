@@ -12,12 +12,20 @@ class Bar extends Component {
   };
 
   componentDidMount() {
-    window.addEventListener('resize', this.resize);
+    window.addEventListener('resize', this.resize, { passive: true });
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.resize);
   }
+
+  handleRoot = n => {
+    this.root = n;
+  };
+
+  handleRef = n => {
+    this.node = n;
+  };
 
   @Bind()
   @Debounce(400)
@@ -45,14 +53,6 @@ class Bar extends Component {
       });
     }
   }
-
-  handleRoot = n => {
-    this.root = n;
-  };
-
-  handleRef = n => {
-    this.node = n;
-  };
 
   render() {
     const {
