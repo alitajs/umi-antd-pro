@@ -1,3 +1,4 @@
-/functions/mock/**
+/lambda
+/lambda/mock/**
 /scripts
 /config
