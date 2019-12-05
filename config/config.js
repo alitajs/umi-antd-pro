@@ -62,6 +62,12 @@ const plugins = [
       ],
     },
   ],
+  [
+    'umi-plugin-cache-route',
+    {
+      keepalive: ['/Dashboard/Analysis', '/Dashboard', '/'],
+    },
+  ],
 ];
 
 // 针对 preview.pro.ant.design 的 GA 统计代码

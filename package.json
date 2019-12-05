@@ -51,9 +51,9 @@
     "not ie <= 10"
   ],
   "dependencies": {
-    "@antv/data-set": "^0.10.1",
-    "antd": "^3.16.1",
-    "bizcharts": "^3.4.3",
+    "@antv/data-set": "^0.10.2",
+    "antd": "^3.26.0",
+    "bizcharts": "^3.5.6",
     "bizcharts-plugin-slider": "^2.1.1-beta.1",
     "classnames": "^2.2.6",
     "dva": "^2.4.1",
@@ -79,10 +79,11 @@
     "react-dom": "^16.7.0",
     "react-fittext": "^1.0.0",
     "react-media": "^1.9.2",
-    "umi": "^2.4.4",
-    "umi-plugin-react": "^1.7.2",
-    "umi-request": "^1.0.5",
-    "umi-plugin-authorize": "^1.0.0"
+    "umi": "^2.12.4",
+    "umi-plugin-authorize": "^1.0.3",
+    "umi-plugin-cache-route": "^2.0.0",
+    "umi-plugin-react": "^1.14.7",
+    "umi-request": "^1.2.11"
   },
   "devDependencies": {
     "@types/history": "^4.7.2",

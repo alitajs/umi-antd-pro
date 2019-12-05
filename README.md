@@ -136,3 +136,7 @@ Any type of contribution is welcome, here are some examples of how you may contr
 - Use Ant Design Pro in your daily work.
 - Submit [issues](http://github.com/ant-design/ant-design-pro/issues) to report bugs or ask questions.
 - Propose [pull requests](http://github.com/ant-design/ant-design-pro/pulls) to improve our code.
+
+
+umi@^2.4.4  DONE Compiled successfully in 41505ms
+umi@^2.12.4 DONE Compiled successfully in 30196ms
