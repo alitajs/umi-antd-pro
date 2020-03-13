@@ -17,7 +17,8 @@
     "allowJs": true,
     "experimentalDecorators": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@@/*": ["./src/.umi/*"]
     }
   },
   "include": ["./src"],

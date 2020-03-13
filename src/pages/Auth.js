@@ -1,11 +1,12 @@
 import React from 'react';
 import pathToRegexp from 'path-to-regexp';
+import { getDvaApp } from 'umi';
 import Authorized from '@/utils/Authorized';
 import Exception403 from './Exception/403';
 
 export default ({ children, location }) => {
   /* eslint-disable no-underscore-dangle */
-  const { routerData } = window.g_app._store.getState().menu;
+  const { routerData } = getDvaApp()._store.getState().menu;
   const getRouteAuthority = (pathname, routeData) => {
     const routes = routeData.slice(); // clone
 
