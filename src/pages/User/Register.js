@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
-import Link from 'umi/link';
-import router from 'umi/router';
+import { formatMessage, FormattedMessage, Link, router } from 'umi';
 import { Form, Input, Button, message, Select, Row, Col, Popover, Progress } from 'antd';
 import styles from './Register.less';
 

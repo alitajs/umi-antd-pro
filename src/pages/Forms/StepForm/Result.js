@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
 import { Button, Row, Col } from 'antd';
-import router from 'umi/router';
+import { router } from 'umi';
 import Result from '@/components/Result';
 import styles from './style.less';
 

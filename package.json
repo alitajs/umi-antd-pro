@@ -51,7 +51,10 @@
     "not ie <= 10"
   ],
   "dependencies": {
+    "@alitajs/router": "^2.1.7",
+    "@alitajs/routes": "^2.1.7",
     "@antv/data-set": "^0.10.2",
+    "@umijs/preset-react": "^1.4.2",
     "antd": "^3.26.0",
     "bizcharts": "^3.5.6",
     "bizcharts-plugin-slider": "^2.1.1-beta.1",
@@ -79,10 +82,8 @@
     "react-dom": "^16.7.0",
     "react-fittext": "^1.0.0",
     "react-media": "^1.9.2",
-    "umi": "^2.12.4",
-    "umi-plugin-authorize": "^1.0.3",
-    "umi-plugin-cache-route": "^2.0.0",
-    "umi-plugin-react": "^1.14.7",
+    "umi": "^3.0.6",
+    "umi-plugin-authorize": "^2.0.0",
     "umi-request": "^1.2.11"
   },
   "devDependencies": {

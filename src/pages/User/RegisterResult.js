@@ -1,7 +1,6 @@
 import React from 'react';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+import { formatMessage, FormattedMessage, Link } from 'umi';
 import { Button } from 'antd';
-import Link from 'umi/link';
 import Result from '@/components/Result';
 import styles from './RegisterResult.less';
 

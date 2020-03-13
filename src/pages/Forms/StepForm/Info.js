@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { connect } from 'dva';
 import { Form, Input, Button, Select, Divider } from 'antd';
-import router from 'umi/router';
+import { router } from 'umi';
 import styles from './style.less';
 
 const { Option } = Select;

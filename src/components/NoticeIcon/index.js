@@ -9,8 +9,6 @@ import styles from './index.less';
 const { TabPane } = Tabs;
 
 export default class NoticeIcon extends PureComponent {
-  static Tab = TabPane;
-
   static defaultProps = {
     onItemClick: () => {},
     onPopupVisibleChange: () => {},
@@ -31,15 +29,6 @@ export default class NoticeIcon extends PureComponent {
     visible: false,
   };
 
-  onItemClick = (item, tabProps) => {
-    const { onItemClick } = this.props;
-    const { clickClose } = item;
-    onItemClick(item, tabProps);
-    if (clickClose) {
-      this.popover.click();
-    }
-  };
-
   onClear = name => {
     const { onClear, clearClose } = this.props;
     onClear(name);
@@ -56,6 +45,15 @@ export default class NoticeIcon extends PureComponent {
   onViewMore = (tabProps, event) => {
     const { onViewMore } = this.props;
     onViewMore(tabProps, event);
+  };
+
+  onItemClick = (item, tabProps) => {
+    const { onItemClick } = this.props;
+    const { clickClose } = item;
+    onItemClick(item, tabProps);
+    if (clickClose) {
+      this.popover.click();
+    }
   };
 
   getNotificationBox() {
@@ -102,6 +100,8 @@ export default class NoticeIcon extends PureComponent {
     this.setState({ visible });
     onPopupVisibleChange(visible);
   };
+
+  static Tab = TabPane;
 
   render() {
     const { className, count, popupVisible, bell } = this.props;
