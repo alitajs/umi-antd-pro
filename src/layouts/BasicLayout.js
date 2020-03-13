@@ -5,6 +5,7 @@ import { connect } from 'dva';
 import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
 import Media from 'react-media';
+import { TabsLayout } from 'umi';
 import logo from '../assets/logo.svg';
 import Footer from './Footer';
 import Header from './Header';
@@ -100,7 +101,6 @@ class BasicLayout extends React.Component {
     const {
       navTheme,
       layout: PropsLayout,
-      children,
       location: { pathname },
       isMobile,
       menuData,
@@ -136,7 +136,7 @@ class BasicLayout extends React.Component {
             {...this.props}
           />
           <Content className={styles.content} style={contentStyle}>
-            {children}
+            <TabsLayout {...this.props} />
           </Content>
           <Footer />
         </Layout>

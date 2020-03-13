@@ -9,8 +9,9 @@ const { pwa, primaryColor } = defaultSettings;
 const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION, TEST } = process.env;
 
 export default {
-  // add for transfer to umi
-  plugins: ['@alitajs/routes', '@alitajs/router'],
+  history: { type: 'hash' },
+  plugins: ['@alitajs/routes', '@alitajs/router', '@alitajs/tabs-layout'],
+  tabsLayout: [/./],
   authorize: [
     {
       guard: ['@/pages/Auth'],

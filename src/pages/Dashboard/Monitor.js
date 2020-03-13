@@ -241,4 +241,6 @@ class Monitor extends Component {
   }
 }
 
+Monitor.title = '监控页';
+
 export default Monitor;

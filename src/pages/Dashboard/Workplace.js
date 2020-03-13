@@ -252,4 +252,6 @@ class Workplace extends PureComponent {
   }
 }
 
+Workplace.title = '工作台';
+
 export default Workplace;
