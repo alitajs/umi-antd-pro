@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { formatMessage, router } from 'umi';
 import { Layout, message } from 'antd';
 import Animate from 'rc-animate';
 import { connect } from 'dva';
-import router from 'umi/router';
 import GlobalHeader from '@/components/GlobalHeader';
 import TopNavHeader from '@/components/TopNavHeader';
 import styles from './Header.less';

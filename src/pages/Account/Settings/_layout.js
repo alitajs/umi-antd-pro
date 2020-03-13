@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import router from 'umi/router';
-import { FormattedMessage } from 'umi-plugin-react/locale';
+import { router, FormattedMessage } from 'umi';
 import { Menu } from 'antd';
 import GridContent from '@/components/PageHeaderWrapper/GridContent';
 import styles from './Info.less';

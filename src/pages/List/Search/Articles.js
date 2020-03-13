@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'dva';
 import { Form, Card, Select, List, Tag, Icon, Row, Col, Button } from 'antd';
-import { FormattedMessage } from 'umi-plugin-react/locale';
+import { FormattedMessage } from 'umi';
 
 import TagSelect from '@/components/TagSelect';
 import StandardFormRow from '@/components/StandardFormRow';
@@ -182,7 +182,10 @@ class SearchList extends Component {
               <Row gutter={16}>
                 <Col xl={8} lg={10} md={12} sm={24} xs={24}>
                   <FormItem {...formItemLayout} label="活跃用户">
-                    {getFieldDecorator('user', {})(
+                    {getFieldDecorator(
+                      'user',
+                      {}
+                    )(
                       <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
                         <Option value="lisa">李三</Option>
                       </Select>
@@ -191,7 +194,10 @@ class SearchList extends Component {
                 </Col>
                 <Col xl={8} lg={10} md={12} sm={24} xs={24}>
                   <FormItem {...formItemLayout} label="好评度">
-                    {getFieldDecorator('rate', {})(
+                    {getFieldDecorator(
+                      'rate',
+                      {}
+                    )(
                       <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
                         <Option value="good">优秀</Option>
                       </Select>

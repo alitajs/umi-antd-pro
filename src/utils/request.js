@@ -4,7 +4,7 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
-import router from 'umi/router';
+import { router } from 'umi';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',

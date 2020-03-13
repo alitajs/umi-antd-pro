@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { formatMessage } from 'umi';
 import { Switch, List } from 'antd';
 
 class NotificationView extends Component {

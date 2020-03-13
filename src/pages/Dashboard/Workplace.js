@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
-import Link from 'umi/link';
+import { Link } from 'umi';
 import { Row, Col, Card, List, Avatar } from 'antd';
 import { Radar } from '@/components/Charts';
 import EditableLinkGroup from '@/components/EditableLinkGroup';

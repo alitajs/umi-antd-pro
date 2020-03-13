@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+import { formatMessage, FormattedMessage } from 'umi';
 import {
   Form,
   Input,

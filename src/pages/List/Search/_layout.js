@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import router from 'umi/router';
+import { router } from 'umi';
 import { connect } from 'dva';
 import { Input } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';

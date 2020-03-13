@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+import { formatMessage, FormattedMessage } from 'umi';
 import { List } from 'antd';
 // import { getTimeDistance } from '@/utils/utils';
 
