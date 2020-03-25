@@ -180,5 +180,5 @@ class Analysis extends Component {
     );
   }
 }
-
+Analysis.title = '分析页';
 export default Analysis;
