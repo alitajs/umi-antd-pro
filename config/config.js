@@ -10,7 +10,7 @@ const { ANT_DESIGN_PRO_ONLY_DO_NOT_USE_IN_YOUR_PRODUCTION, TEST } = process.env;
 
 export default {
   history: { type: 'hash' },
-  plugins: ['@alitajs/routes', '@alitajs/router', '@alitajs/tabs-layout'],
+  plugins: ['@alitajs/routes', '@alitajs/router', '@alitajs/tabs-layout', '@alitajs/plugin-theme'],
   tabsLayout: [/./],
   authorize: [
     {
@@ -45,6 +45,11 @@ export default {
   // https://ant.design/docs/react/customize-theme-cn
   theme: {
     'primary-color': primaryColor,
+  },
+  dynamicTheme: {
+    type: 'antd',
+    // varFile: path.join(__dirname, '../src/default.less'),
+    themeVariables: ['@primary-color'],
   },
   // proxy: {
   //   '/server/api/': {
