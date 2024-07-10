@@ -178,7 +178,7 @@ export default [
             name: 'success',
             component: './Result/Success',
           },
-          { path: '/result/fail', name: 'fail', component: './Result/Error' },
+          { path: '/result/error', name: 'error', component: './Result/Error' },
         ],
       },
       {

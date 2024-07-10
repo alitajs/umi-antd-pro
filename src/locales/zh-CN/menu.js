@@ -27,7 +27,7 @@ export default {
   'menu.profile.advanced': '高级详情页',
   'menu.result': '结果页',
   'menu.result.success': '成功页',
-  'menu.result.fail': '失败页',
+  'menu.result.error': '失败页',
   'menu.exception': '异常页',
   'menu.exception.not-permission': '403',
   'menu.exception.not-find': '404',

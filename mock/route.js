@@ -124,7 +124,7 @@ export default {
             path: '/result/success',
             name: 'success',
           },
-          { path: '/result/fail', name: 'fail' },
+          { path: '/result/error', name: 'error' },
         ],
       },
       {

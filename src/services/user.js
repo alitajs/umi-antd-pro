@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/extensions
 import request from '@/utils/request';
 
 export async function query() {
@@ -131,7 +132,7 @@ export async function queryMenu() {
             path: '/result/success',
             name: 'success',
           },
-          { path: '/result/fail', name: 'fail' },
+          { path: '/result/error', name: 'error' },
         ],
       },
       {

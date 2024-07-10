@@ -65,7 +65,8 @@ const errorHandler = error => {
  * 配置request请求时的默认参数
  */
 const request = extend({
-  prefix: 'https://proapi.azurewebsites.net',
+  // prefix: 'https://proapi.azurewebsites.net',
+  prefix: '',
   errorHandler, // 默认错误处理
   // credentials: 'include', // 默认请求是否带上cookie
 });
