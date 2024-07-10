@@ -61,6 +61,7 @@
     "bizcharts": "^3.5.6",
     "bizcharts-plugin-slider": "^2.1.1-beta.1",
     "classnames": "^2.2.6",
+    "core-js": "^3.37.1",
     "dva": "^2.4.1",
     "enquire-js": "^0.2.1",
     "express": "^4.16.4",
@@ -87,6 +88,7 @@
     "react-router-config": "^5.1.1",
     "umi": "^3.0.6",
     "umi-plugin-authorize": "^2.0.1",
+    "umi-plugin-mako": "^0.0.2",
     "umi-request": "^1.2.11"
   },
   "devDependencies": {

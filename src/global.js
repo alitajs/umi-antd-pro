@@ -2,6 +2,7 @@ import React from 'react';
 import { notification, Button, message } from 'antd';
 import { formatMessage } from 'umi';
 import defaultSettings from './defaultSettings';
+import 'antd/dist/antd.css';
 
 window.React = React;
 
