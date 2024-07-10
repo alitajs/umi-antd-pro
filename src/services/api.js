@@ -1,4 +1,5 @@
 import { stringify } from 'qs';
+// eslint-disable-next-line import/extensions
 import request from '@/utils/request';
 
 export async function queryProjectNotice() {
@@ -51,7 +52,7 @@ export async function fakeSubmitForm(params) {
 }
 
 export async function fakeChartData() {
-  return request('/api/fake_chart_data');
+  return request('/api/fake_analysis_chart_data');
 }
 
 export async function queryTags() {
