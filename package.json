@@ -88,7 +88,7 @@
     "react-router-config": "^5.1.1",
     "umi": "^3.0.6",
     "umi-plugin-authorize": "^2.0.1",
-    "umi-plugin-mako": "^0.0.2",
+    "umi-plugin-mako": "^0.0.13",
     "umi-request": "^1.2.11"
   },
   "devDependencies": {
